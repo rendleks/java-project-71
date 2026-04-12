@@ -28,6 +28,7 @@ public class App implements Runnable {
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
+        System.out.println(args);
         System.exit(exitCode);
     }
 }

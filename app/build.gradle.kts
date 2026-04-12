@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
     implementation("info.picocli:picocli:4.7.7")
     testImplementation(platform("org.junit:junit-bom:6.1.0-M1"))
     testImplementation("org.junit.jupiter:junit-jupiter")

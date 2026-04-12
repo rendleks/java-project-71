@@ -14,6 +14,7 @@ public class Gendiff {
 
     public static String readFile(String filename) throws Exception {
         var path = getFilePath(filename);
+
         return Files.readString(path).trim();
     }
 }
