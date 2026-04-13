@@ -5,7 +5,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.File;
+import hexlet.code.Gendiff.*;
 
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
@@ -16,14 +16,29 @@ public class App implements Runnable {
     private String format = "stylish";
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    File filepath1;
+    String filepath1;
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    File filepath2;
+    String filepath2;
 
     @Override
     public void run() {
-        // This business logic of the command goes here ...
+        String valueFile1 = null;
+        try {
+            valueFile1 = Gendiff.readFile(filepath1);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        String valueFile2 = null;
+        try {
+            valueFile2 = Gendiff.readFile(filepath2);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(valueFile1);
+        System.out.println(valueFile2);
+
     }
 
     public static void main(String[] args) {

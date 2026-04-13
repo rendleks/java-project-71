@@ -1,4 +1,4 @@
-clean:
+makclean:
 	./gradlew clean
 
 build:
