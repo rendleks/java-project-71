@@ -8,10 +8,6 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hexlet.code.Json;
-
-
-
 public class Gendiff {
     public static Path getFilePath(String filename) {
         Path path = Paths.get(filename);
@@ -22,7 +18,7 @@ public class Gendiff {
 
     public static String readFile(String filename) throws Exception {
         var path = getFilePath(filename);
-        return Files.readString(path).trim();
+        return Files.readString(path);
     }
 
     public static Map<String, Object> jsonToMap(String filename) throws Exception {
@@ -30,8 +26,7 @@ public class Gendiff {
 
         String file = readFile(filename);
 
-        Map<String, Object> map = mapper.readValue(file, new TypeReference<Map<String, Object>>() {
-        });
+        Map<String, Object> map = mapper.readValue(file, new TypeReference<Map<String, Object>>() {});
 
         return map;
     }

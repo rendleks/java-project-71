@@ -5,8 +5,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import hexlet.code.Gendiff.*;
-
+import static hexlet.code.Gendiff.jsonToMap;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true,
 description = "Compares two configuration files and shows a difference.")
@@ -39,7 +38,22 @@ public class App implements Runnable {
         System.out.println(valueFile1);
         System.out.println(valueFile2);
 
+        try {
+            var fileOneJson = jsonToMap(valueFile1);
+            System.out.println(fileOneJson);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            var fileTwoJson = jsonToMap(valueFile2);
+            System.out.println(fileTwoJson);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
+
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
