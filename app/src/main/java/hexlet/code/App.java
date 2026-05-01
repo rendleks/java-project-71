@@ -32,9 +32,6 @@ public class App implements Callable<Integer> {
     }
 
     public static void main(String[] args) {
-        // By implementing Runnable or Callable, parsing, error handling and handling user
-        // requests for usage help or version help can be done with one line of code.
-
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
