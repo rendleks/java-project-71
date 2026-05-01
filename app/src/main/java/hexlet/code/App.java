@@ -5,59 +5,37 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import static hexlet.code.Gendiff.jsonToMap;
+import java.util.concurrent.Callable;
 
-@Command(name = "gendiff", mixinStandardHelpOptions = true,
-description = "Compares two configuration files and shows a difference.")
-public class App implements Runnable {
+@Command(name = "gendiff", mixinStandardHelpOptions = true, version = "1.0",
+        description = "Compares two configuration files and shows a difference.")
+public class App implements Callable<Integer> {
 
-    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    @Option(names = { "-f", "--format" },
+            description = "output format [default: stylish]")
     private String format = "stylish";
 
-    @Parameters(paramLabel = "filepath1", description = "path to first file")
-    String filepath1;
+    @Parameters(index = "0", description = "path to first file")
+    private String filepath1;
 
-    @Parameters(paramLabel = "filepath2", description = "path to second file")
-    String filepath2;
+    @Parameters(index = "1", description = "path to second file")
+    private String filepath2;
 
     @Override
-    public void run() {
-        String valueFile1 = null;
-        try {
-            valueFile1 = Gendiff.readFile(filepath1);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        String valueFile2 = null;
-        try {
-            valueFile2 = Gendiff.readFile(filepath2);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public Integer call() throws Exception {
 
-        System.out.println(valueFile1);
-        System.out.println(valueFile2);
+        System.out.println("filepath1: " + filepath1 + "\n" + "Filepath2: " + filepath2);
 
-        try {
-            var fileOneJson = jsonToMap(valueFile1);
-            System.out.println(fileOneJson);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            var fileTwoJson = jsonToMap(valueFile2);
-            System.out.println(fileTwoJson);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        var diff = Differ.generate(filepath1, filepath2);
+        System.out.println(diff);
+        return 0;
     }
 
-
     public static void main(String[] args) {
+        // By implementing Runnable or Callable, parsing, error handling and handling user
+        // requests for usage help or version help can be done with one line of code.
+
         int exitCode = new CommandLine(new App()).execute(args);
-        System.out.println(args);
         System.exit(exitCode);
     }
 }
