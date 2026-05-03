@@ -53,6 +53,9 @@ jobs:
   dependency-submission:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app
     permissions:
       contents: write
 
