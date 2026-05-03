@@ -98,7 +98,7 @@ public class Differ {
                     Object value = entry.getValue();
                     formattedRow.append(String.format("  %s: %s\n", key, value));
                 }
-                formattedRow.append("}\n");
+                formattedRow.append("}");
                 break;
             default:
                 formattedRow.append("Unknown format!");
