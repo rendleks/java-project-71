@@ -3,13 +3,15 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
@@ -40,7 +42,7 @@ public class Differ {
 
     private static Map<String, Object> parsing(String fileReading) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map = mapper.readValue(fileReading, new TypeReference<>() {});
+        Map<String, Object> map = mapper.readValue(fileReading, new TypeReference<>() { });
 
         return map;
     }
@@ -59,7 +61,7 @@ public class Differ {
 
         for (var key: uniqueKeys) {
             var val1 = file1.getOrDefault(key, null);
-            var val2 = file2.getOrDefault(key, null );
+            var val2 = file2.getOrDefault(key, null);
 
             if ((val1 != null && val2 != null) && val1.equals(val2)) {
                 var newKey = "  " + key;

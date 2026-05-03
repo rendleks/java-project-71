@@ -1,6 +1,7 @@
 plugins {
     application
     checkstyle
+    id("org.sonarqube") version "7.3.0.8198"
 }
 
 group = "hexlet.code"
@@ -22,6 +23,13 @@ dependencies {
 
 checkstyle {
     toolVersion = "10.12.0"
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "rendleks_java-project-71")
+        property("sonar.organization", "rendleks")
+    }
 }
 
 tasks.test {
