@@ -72,5 +72,5 @@ jobs:
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
       with:
-        gradle-version: '8.9'  # Указываем версию Gradle, так как нет Wrapper
-        build-root-directory: './app'  # Указываем корневую директорию проекта
+        gradle-version: '8.9'
+        build-root-directory: './app'
