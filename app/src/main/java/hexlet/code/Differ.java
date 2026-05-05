@@ -52,8 +52,8 @@ public class Differ {
         }
 
         throw new UnsupportedOperationException(
-                "Unsupported file extension: " + fileExtension +
-                        ". Supported: json, yaml, yml"
+                "Unsupported file extension: " + fileExtension
+                        + ". Supported: json, yaml, yml"
         );
     }
 
