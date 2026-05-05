@@ -2,6 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,29 +23,38 @@ public class Differ {
         // Передать разницу форматеру
         // Выводим результат в консоль
 
-        var readFile1 = readFile(filepath1); // чтение файлов
-        var readFile2 = readFile(filepath2);
-
-        var parsingFile1 = parsing(readFile1); // парсинг данных
-        var parsingFile2 = parsing(readFile2);
-
+        var parsingFile1 = parsing(filepath1); // парсинг данных
+        var parsingFile2 = parsing(filepath2);
         var buildDifference = difference(parsingFile1, parsingFile2); // построение разницы
-
         var formatterString = formatter(format, buildDifference); // вывод разницы в зависимости от формата
 
         return formatterString;
     }
+
 
     private static String readFile(String path) throws IOException {
         Path filePath = Paths.get(path).toAbsolutePath().normalize();
         return Files.readString(filePath).trim();
     }
 
-    private static Map<String, Object> parsing(String fileReading) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> map = mapper.readValue(fileReading, new TypeReference<>() { });
+    private static Map<String, Object> parsing(String filePath) throws IOException {
+        String fileExtension = Paths.get(filePath).getFileName().toString(); // имя файла с расширением
+        var fileReading = readFile(filePath);
 
-        return map;
+        if (fileExtension.endsWith("json")) {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(fileReading, new TypeReference<>() { });
+        }
+
+        if (fileExtension.endsWith("yaml")) {
+            ObjectMapper mapper = new YAMLMapper();
+            return mapper.readValue(fileReading, new TypeReference<>() { });
+        }
+
+        throw new UnsupportedOperationException(
+                "Unsupported file extension: " + fileExtension +
+                        ". Supported: json, yaml, yml"
+        );
     }
 
     private static Map<String, Object> difference(Map<String, Object> file1, Map<String, Object> file2) {
@@ -107,5 +117,4 @@ public class Differ {
 
         return formattedRow.toString();
     }
-
 }
