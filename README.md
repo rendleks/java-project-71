@@ -18,4 +18,6 @@ make run file1.json file2.json
 ## Demo diff json files
 [![asciicast](https://asciinema.org/a/1006537.svg)](https://asciinema.org/a/1006537)
 ## Demo diff yaml files
-[![asciicast](https://asciinema.org/a/ulsESzznZAfislde.svg)](https://asciinema.org/a/ulsESzznZAfislde)
+[![asciicast](https://asciinema.org/a/1023703.svg)](https://asciinema.org/a/1023703)
+## Demo diff deep json files
+[![asciicast](https://asciinema.org/a/1045985.svg)](https://asciinema.org/a/1045985)
