@@ -40,6 +40,14 @@ public class Differ {
             var val1 = file1.getOrDefault(key, null);
             var val2 = file2.getOrDefault(key, null);
 
+            if (keys1.contains(key) && val1 == null) {
+                val1 = "null";
+            }
+
+            if (keys2.contains(key) && val2 == null) {
+                val2 = "null";
+            }
+
             if ((val1 != null && val2 != null) && val1.equals(val2)) {
                 var newKey = "  " + key;
                 result.put(newKey, val1);
@@ -48,7 +56,7 @@ public class Differ {
                 var newKey1 = "- " + key;
                 result.put(newKey1, val1);
                 var newKey2 = "+ " + key;
-                result.put(newKey2, val1);
+                result.put(newKey2, val2);
             }
             if (val1 == null && val2 != null) {
                 var newKey = "+ " + key;
