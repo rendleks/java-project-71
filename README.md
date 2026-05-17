@@ -21,3 +21,5 @@ make run file1.json file2.json
 [![asciicast](https://asciinema.org/a/1023703.svg)](https://asciinema.org/a/1023703)
 ## Demo diff deep json files
 [![asciicast](https://asciinema.org/a/1045985.svg)](https://asciinema.org/a/1045985)
+## Demo diff plain format
+[![asciicast](https://asciinema.org/a/1074199.svg)](https://asciinema.org/a/1074199)
