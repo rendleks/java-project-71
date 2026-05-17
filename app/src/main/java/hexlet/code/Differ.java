@@ -5,22 +5,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.StringJoiner;
 
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
 
-        // Считываем файлы
-        // Парсинг данных
-        // Находи разницу
-        // Передать разницу форматеру
-        // Выводим результат в консоль
-
         var parsingFile1 = new Parser().parsing(filepath1); // парсинг данных
         var parsingFile2 = new Parser().parsing(filepath2);
         var buildDifference = difference(parsingFile1, parsingFile2); // построение разницы
-        var formatterString = formatter(format, buildDifference); // вывод разницы в зависимости от формата
+        var formatterString = Formatter.format(format, buildDifference); // вывод разницы в зависимости от формата
 
         return formatterString;
     }
@@ -66,89 +59,5 @@ public class Differ {
         }
 
         return result;
-    }
-
-    private static String formatter(String format, Map<String, Object[]> differenceObject) {
-
-        var formattedRow = new StringJoiner("\n");
-
-        switch (format) {
-            case "stylish":
-                formattedRow.add("{");
-                for (Map.Entry<String, Object[]> entry : differenceObject.entrySet()) {
-                    String key = entry.getKey();
-                    Object[] value = entry.getValue();
-
-                    switch (value[0].toString()) {
-                        case "update":
-                            formattedRow.add(String.format("  - %s: %s", key, value[1].toString()));
-                            formattedRow.add(String.format("  + %s: %s", key, value[2].toString()));
-                            break;
-                        case "add":
-                            formattedRow.add(String.format("  + %s: %s", key, value[1].toString()));
-                            break;
-                        case "remove":
-                            formattedRow.add(String.format("  - %s: %s", key, value[1].toString()));
-                            break;
-                        default:
-                            formattedRow.add(String.format("    %s: %s", key, value[1].toString()));
-                            break;
-                    }
-                }
-                formattedRow.add("}");
-                break;
-            case "plain":
-                for (Map.Entry<String, Object[]> entry : differenceObject.entrySet()) {
-                    String key = entry.getKey();
-                    Object[] value = entry.getValue();
-
-                    switch (value[0].toString()) {
-                        case "update":
-                            var val1 = utilPlainFormat(value[1]);
-                            var val2 = utilPlainFormat(value[2]);
-                            formattedRow.add(String.format(
-                                    "Property '%s' was updated. From %s to %s",
-                                    key,
-                                    val1,
-                                    val2)
-                            );
-                            break;
-                        case "add":
-                            var valAdd = utilPlainFormat(value[1]);
-                            formattedRow.add(String.format("Property '%s' was added with value: %s", key, valAdd));
-                            break;
-                        case "remove":
-                            formattedRow.add(String.format("Property '%s' was removed", key));
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break;
-            default:
-                formattedRow.add("Unknown format!");
-                break;
-        }
-
-        return formattedRow.toString();
-    }
-
-    private static String utilPlainFormat(Object value) {
-        var typeValue = value.getClass().getSimpleName();
-
-        if (value.equals("null")) {
-            return "null";
-        }
-
-        switch (typeValue) {
-            case "Boolean":
-            case "Integer":
-                return value.toString();
-            case "LinkedHashMap":
-            case "ArrayList":
-                return "[complex value]";
-            default:
-                return "'" + value + "'";
-        }
     }
 }
