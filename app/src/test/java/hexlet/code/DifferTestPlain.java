@@ -23,8 +23,8 @@ public class DifferTestPlain {
     @Test
     public void testFlatList() throws Exception {
 
-        var pathFile1 = getFixturePath("file1.json").toString();
-        var pathFile2 = getFixturePath("file2.json").toString();
+        var pathFile1 = getFixturePath("file1Deep.json").toString();
+        var pathFile2 = getFixturePath("file2Deep.json").toString();
 
         var diff = Differ.generate(pathFile1, pathFile2, "plain");
 
